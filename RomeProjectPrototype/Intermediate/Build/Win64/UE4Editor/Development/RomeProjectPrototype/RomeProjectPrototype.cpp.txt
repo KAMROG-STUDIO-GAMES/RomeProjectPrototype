@@ -1,0 +1,2 @@
+C:\Users\anton\Documents\GitHub\RomeProjectPrototype\RomeProjectPrototype\Intermediate\Build\Win64\UE4Editor\Development\RomeProjectPrototype\Definitions.RomeProjectPrototype.h
+C:\Users\anton\Documents\GitHub\RomeProjectPrototype\RomeProjectPrototype\Source\RomeProjectPrototype\RomeProjectPrototype.h

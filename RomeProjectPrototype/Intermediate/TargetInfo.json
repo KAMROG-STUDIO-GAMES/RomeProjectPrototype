@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "RomeProjectPrototype",
+			"Path": "C:\\Users\\anton\\Documents\\GitHub\\RomeProjectPrototype\\RomeProjectPrototype\\Source\\RomeProjectPrototype.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "RomeProjectPrototypeEditor",
+			"Path": "C:\\Users\\anton\\Documents\\GitHub\\RomeProjectPrototype\\RomeProjectPrototype\\Source\\RomeProjectPrototypeEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}
