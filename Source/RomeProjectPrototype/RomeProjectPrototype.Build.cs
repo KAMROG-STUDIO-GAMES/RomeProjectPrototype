@@ -9,7 +9,7 @@ public class RomeProjectPrototype : ModuleRules
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
-
+        PublicIncludePaths.AddRange(new string[] { "RomeProjectPrototype" });
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
 		// Uncomment if you are using Slate UI
