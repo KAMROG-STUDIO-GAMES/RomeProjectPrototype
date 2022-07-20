@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Engine/Texture2D.h"
 #include "Squad.generated.h"
 
 UCLASS(Blueprintable, BlueprintType)
@@ -27,47 +28,54 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "Squad"))
 	float GetHealth();
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "Squad"))
 	float GetArmor();
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "Squad"))
 	float GetDamage();
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "Squad"))
 	float GetAttackSpeed();
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "Squad"))
 	float GetRange();
 
-	UFUNCTION(BlueprintCallable)
-	FString GetName();
+	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "Squad"))
+	FString GetSquadName();
 
-	UFUNCTION(BlueprintCallable)
-	FString GetDescription();
+	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "Squad"))
+	FString GetSquadDescription();
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "Squad"))
+	UTexture2D* GetSquadIcon();
 
 protected:
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (Category = "Squad"))
 	float Health = 100;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (Category = "Squad"))
 	float Armor = 2;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (Category = "Squad"))
 	float Damage = 10;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (Category = "Squad"))
 	float AttackSpeed = 1;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (Category = "Squad"))
 	float Range = 1;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (Category = "Squad"))
 	FString Name = "Squad Name";
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (Category = "Squad"))
 	FString Description = "Squad Desc";
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (Category = "Squad"))
+	UTexture2D* Icon;
+
 };

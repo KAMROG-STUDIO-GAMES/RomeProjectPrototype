@@ -55,13 +55,18 @@ float ASquad::GetRange()
 	return Range;
 }
 
-FString ASquad::GetName()
+FString ASquad::GetSquadName()
 {
 	return  Name;
 }
 
-FString ASquad::GetDescription()
+FString ASquad::GetSquadDescription()
 {
 	return Description;
+}
+
+UTexture2D* ASquad::GetSquadIcon()
+{
+	return Icon;
 }
 

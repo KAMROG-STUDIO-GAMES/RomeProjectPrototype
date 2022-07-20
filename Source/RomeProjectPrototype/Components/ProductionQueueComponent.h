@@ -6,37 +6,44 @@
 #include "Components/ActorComponent.h"
 #include "ProductionQueueComponent.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnOrderCompleted);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnOrderCanceled);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnOrderCompleted, int, Index);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnOrderCreated, UQueueOrder*, Order);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnOrderCanceled, int, Index);
 
 
-UCLASS()
-class UQueueOrderHandler : public UObject
+UCLASS(BlueprintType)
+class UQueueOrder : public UObject
 {
 	GENERATED_BODY()
 
 public:
 
 	UFUNCTION()
-	virtual void HandleOrderCompleted()
-	{
-	}
+	virtual void HandleOrderCompleted();
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	virtual FText GetName() { return FText(); }
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	virtual UTexture2D* GetIcon() { return nullptr; }
+
+	UPROPERTY(BlueprintReadOnly)
+	float Time = 10;
 };
 
 
-USTRUCT(BlueprintType)
-struct FQueueOrderStruct
+class ASquad;
+UCLASS()
+class USquadQueueOrder : public UQueueOrder
 {
 	GENERATED_BODY()
 
-	FQueueOrderStruct(UQueueOrderHandler* Handler, const float InitialTime);
-	FQueueOrderStruct();
+public:
 
-	UPROPERTY(BlueprintReadOnly)
-	UQueueOrderHandler* Handler = nullptr;
-
-	UPROPERTY(BlueprintReadOnly)
-	float Time = 0;
+	virtual void HandleOrderCompleted() override;
+	virtual FText GetName() override;
+	virtual UTexture2D* GetIcon() override;
+	TSubclassOf<ASquad> SquadClass;
 };
 
 
@@ -50,25 +57,34 @@ public:
 	UProductionQueueComponent();
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "ProductionQueue"))
-	FQueueOrderStruct GetCurrentOrder();
+	UQueueOrder* GetCurrentOrder();
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "ProductionQueue"))
-	TArray<FQueueOrderStruct> GetPendingOrders();
+	TArray<UQueueOrder*> GetPendingOrders();
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "ProductionQueue"))
+	TArray<UQueueOrder*> GetOrders();
 
 	UFUNCTION(BlueprintCallable)
-		void StartNewOrder();
+	void StartNewOrder();
 
 	UFUNCTION(BlueprintCallable)
-		void CompleteOrder();
+	void CompleteOrder();
 
 	UFUNCTION(BlueprintCallable)
-		bool CancelOrder(int Index);
+	bool CancelOrder(int Index);
 
 	UFUNCTION(BlueprintCallable)
-		bool CancelCurrent();
+	bool CancelCurrent();
 
 	UFUNCTION(BlueprintCallable)
-		void CreateOrder(UQueueOrderHandler* Handler, float Time);
+	void CreateOrder(UQueueOrder* Order);
+
+	UFUNCTION(BlueprintCallable)
+	void CreateSquadOrder(TSubclassOf<ASquad> SquadClass);
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "ProductionQueue"))
+	float GetProgress();
 
 
 protected:
@@ -76,7 +92,7 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY()
-	TArray<FQueueOrderStruct> Orders;
+	TArray<UQueueOrder*> Orders;
 
 	UPROPERTY()
 	FTimerHandle Timer;
@@ -91,8 +107,13 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	UPROPERTY(BlueprintAssignable, meta = (Category = "ProductionQueue"))
 	FOnOrderCompleted OnOrderCompleted;
 
+	UPROPERTY(BlueprintAssignable, meta = (Category = "ProductionQueue"))
+	FOnOrderCreated OnOrderCreated;
+
+	UPROPERTY(BlueprintAssignable, meta = (Category = "ProductionQueue"))
 	FOnOrderCanceled OnOrderCanceled;
 		
 };
