@@ -55,3 +55,13 @@ float ASquad::GetRange()
 	return Range;
 }
 
+FString ASquad::GetName()
+{
+	return  Name;
+}
+
+FString ASquad::GetDescription()
+{
+	return Description;
+}
+

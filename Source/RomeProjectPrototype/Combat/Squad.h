@@ -42,6 +42,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 	float GetRange();
 
+	UFUNCTION(BlueprintCallable)
+	FString GetName();
+
+	UFUNCTION(BlueprintCallable)
+	FString GetDescription();
+
 protected:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
@@ -59,6 +65,9 @@ protected:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	float Range = 1;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FString Name = "Squad Name";
 
-
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FString Description = "Squad Desc";
 };
