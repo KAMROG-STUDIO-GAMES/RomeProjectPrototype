@@ -57,13 +57,13 @@ public:
 	UProductionQueueComponent();
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "ProductionQueue"))
-	UQueueOrder* GetCurrentOrder();
+	UQueueOrder* GetCurrentOrder() const;
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "ProductionQueue"))
-	TArray<UQueueOrder*> GetPendingOrders();
+	TArray<UQueueOrder*> GetPendingOrders() const;
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "ProductionQueue"))
-	TArray<UQueueOrder*> GetOrders();
+	TArray<UQueueOrder*> GetOrders() const;
 
 	UFUNCTION(BlueprintCallable)
 	void StartNewOrder();
@@ -84,12 +84,10 @@ public:
 	void CreateSquadOrder(TSubclassOf<ASquad> SquadClass);
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "ProductionQueue"))
-	float GetProgress();
+	float GetProgress() const;
 
 
 protected:
-	// Called when the game starts
-	virtual void BeginPlay() override;
 
 	UPROPERTY()
 	TArray<UQueueOrder*> Orders;
@@ -103,9 +101,13 @@ protected:
 	UPROPERTY()
 	bool InProgress = false;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (Category = "ProductionQueue"))
+	int CurrentQueueSize = 0;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (Category = "ProductionQueue"))
+	int MaxQueueSize = 10;
+
 public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UPROPERTY(BlueprintAssignable, meta = (Category = "ProductionQueue"))
 	FOnOrderCompleted OnOrderCompleted;

@@ -3,7 +3,7 @@
 
 #include "Components/ProductionQueueComponent.h"
 #include "Combat/Squad.h"
-
+#include "BarracksComponent.h"
 void UQueueOrder::HandleOrderCompleted()
 {
 	
@@ -12,6 +12,14 @@ void UQueueOrder::HandleOrderCompleted()
 void USquadQueueOrder::HandleOrderCompleted()
 {
 	Super::HandleOrderCompleted();
+	auto Owner = Cast<UProductionQueueComponent>(GetOuter());
+	auto District = Owner->GetOwner();
+	auto BarracksComponent = Cast<UBarracksComponent>(District->GetComponentByClass(UBarracksComponent::StaticClass()));
+	if(BarracksComponent)
+	{
+		BarracksComponent->CreateSquad(SquadClass);
+	}
+	
 }
 
 FText USquadQueueOrder::GetName()
@@ -46,21 +54,21 @@ UProductionQueueComponent::UProductionQueueComponent()
 	// ...
 }
 
-UQueueOrder* UProductionQueueComponent::GetCurrentOrder()
+UQueueOrder* UProductionQueueComponent::GetCurrentOrder() const
 {
 	if (Orders.IsValidIndex(0))
 		return Orders[0];
 	return nullptr;
 }
 
-TArray<UQueueOrder*> UProductionQueueComponent::GetPendingOrders()
+TArray<UQueueOrder*> UProductionQueueComponent::GetPendingOrders() const
 {
 	auto PendingOrders = Orders;
 	PendingOrders.RemoveAt(0);
 	return PendingOrders;
 }
 
-TArray<UQueueOrder*> UProductionQueueComponent::GetOrders()
+TArray<UQueueOrder*> UProductionQueueComponent::GetOrders() const
 {
 	return Orders;
 }
@@ -116,12 +124,12 @@ void UProductionQueueComponent::CreateOrder(UQueueOrder* Order)
 
 void UProductionQueueComponent::CreateSquadOrder(TSubclassOf<ASquad> SquadClass)
 {
-	USquadQueueOrder* Handler = NewObject<USquadQueueOrder>();
+	USquadQueueOrder* Handler = NewObject<USquadQueueOrder>(this);
 	Handler->SquadClass = SquadClass;
 	CreateOrder(Handler);
 }
 
-float UProductionQueueComponent::GetProgress()
+float UProductionQueueComponent::GetProgress () const
 {
 	if (InProgress) {
 		float Progress = GetWorld()->GetTimerManager().GetTimerElapsed(Timer) / GetCurrentOrder()->Time;
@@ -129,22 +137,3 @@ float UProductionQueueComponent::GetProgress()
 	}
 	return 0;
 }
-
-// Called when the game starts
-void UProductionQueueComponent::BeginPlay()
-{
-	Super::BeginPlay();
-
-	// ...
-	
-}
-
-
-// Called every frame
-void UProductionQueueComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
-}
-
