@@ -16,56 +16,42 @@ float ASquad::ApplyDamage_Implementation(float IncomingDamage)
 	return IncomingDamage - Armor;
 }
 
-// Called when the game starts or when spawned
-void ASquad::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
-
-// Called every frame
-void ASquad::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
-
-float ASquad::GetHealth()
+float ASquad::GetHealth() const
 {
 	return Health;
 }
 
-float ASquad::GetArmor()
+float ASquad::GetArmor() const
 {
 	return Armor;
 }
 
-float ASquad::GetDamage()
+float ASquad::GetDamage() const
 {
 	return Damage;
 }
 
-float ASquad::GetAttackSpeed()
+float ASquad::GetAttackSpeed() const
 {
 	return AttackSpeed;
 }
 
-float ASquad::GetRange()
+float ASquad::GetRange() const
 {
 	return Range;
 }
 
-FString ASquad::GetSquadName()
+FText ASquad::GetSquadName() const
 {
 	return  Name;
 }
 
-FString ASquad::GetSquadDescription()
+FText ASquad::GetSquadDescription() const
 {
 	return Description;
 }
 
-UTexture2D* ASquad::GetSquadIcon()
+UTexture2D* ASquad::GetSquadIcon() const
 {
 	return Icon;
 }

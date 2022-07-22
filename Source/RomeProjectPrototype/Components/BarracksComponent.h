@@ -7,7 +7,7 @@
 #include "BarracksComponent.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnSquadCreated, ASquad*, Squad);
-
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnArmyCreated, AArmy*, Army);
 
 class AArmy;
 class ASquad;
@@ -24,10 +24,16 @@ public:
 	UFUNCTION()
 	void CreateSquad(TSubclassOf<ASquad> SquadClass);
 
+	UFUNCTION(BlueprintCallable, meta = (Category = "BarracksComponent"))
+	void CreateArmy();
+
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "BarracksComponent"))
 	TArray<ASquad*> GetSquads() const;
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "BarracksComponent"))
+	TArray<AArmy*> GetArmies() const;
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "BarracksComponent"))
 	bool HasFreeSpace() const;
 
 protected:
@@ -44,9 +50,20 @@ protected:
 	UPROPERTY(EditAnywhere, meta = (Category = "BarracksComponent"))
 	int MaxSquadsNum = 10;
 
+	UPROPERTY(EditAnywhere, meta = (Category = "BarracksComponent"))
+	int ArmiesNum = 0;
+
+	UPROPERTY(EditAnywhere, meta = (Category = "BarracksComponent"))
+	int MaxArmiesNum = 10;
+
+
+
 public:	
 
 	UPROPERTY(BlueprintAssignable, meta = (Category = "BarracksComponent"))
 	FOnSquadCreated OnNewSquadAdded;
+
+	UPROPERTY(BlueprintAssignable, meta = (Category = "BarracksComponent"))
+	FOnArmyCreated OnNewArmyCreated;
 		
 };

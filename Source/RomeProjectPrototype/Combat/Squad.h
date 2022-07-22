@@ -20,37 +20,32 @@ public:
 	float ApplyDamage(float IncomingDamage);
 	float ApplyDamage_Implementation(float IncomingDamage);
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "Squad"))
-	float GetHealth();
+	float GetHealth() const;
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "Squad"))
-	float GetArmor();
+	float GetArmor() const;
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "Squad"))
-	float GetDamage();
+	float GetDamage() const;
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "Squad"))
-	float GetAttackSpeed();
+	float GetAttackSpeed() const;
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "Squad"))
-	float GetRange();
+	float GetRange() const;
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "Squad"))
-	FString GetSquadName();
+	FText GetSquadName() const;
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "Squad"))
-	FString GetSquadDescription();
+	FText GetSquadDescription() const;
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "Squad"))
-	UTexture2D* GetSquadIcon();
+	UTexture2D* GetSquadIcon() const;
 
 protected:
 
@@ -69,11 +64,17 @@ protected:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (Category = "Squad"))
 	float Range = 1;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (Category = "Squad"))
-	FString Name = "Squad Name";
+
+	#define LOCTEXT_NAMESPACE "SquadNamespace"
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (Category = "Squad"))
-	FString Description = "Squad Desc";
+	FText Name = LOCTEXT("SquadName", "Squad Name");
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (Category = "Squad"))
+	FText Description = LOCTEXT("SquadDescription", "Squad Description");
+
+	#undef LOCTEXT_NAMESPACE
+
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (Category = "Squad"))
 	UTexture2D* Icon;

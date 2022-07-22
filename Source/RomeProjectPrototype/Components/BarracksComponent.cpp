@@ -26,9 +26,25 @@ void UBarracksComponent::CreateSquad(TSubclassOf<ASquad> SquadClass)
 	}
 }
 
+void UBarracksComponent::CreateArmy()
+{
+	auto CreatedArmy = Cast<AArmy>(GetWorld()->SpawnActor(AArmy::StaticClass()));
+	if (CreatedArmy)
+	{
+		Armies.Add(CreatedArmy);
+		ArmiesNum++;
+		OnNewArmyCreated.Broadcast(CreatedArmy);
+	}
+}
+
 TArray<ASquad*> UBarracksComponent::GetSquads() const
 {
 	return Squads;
+}
+
+TArray<AArmy*> UBarracksComponent::GetArmies() const
+{
+	return Armies;
 }
 
 bool UBarracksComponent::HasFreeSpace() const

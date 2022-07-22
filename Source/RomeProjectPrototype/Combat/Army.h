@@ -8,6 +8,18 @@
 
 class ASquad;
 
+USTRUCT(BlueprintType)
+struct FRowFormation
+{
+	GENERATED_BODY()
+
+	UPROPERTY(BlueprintReadOnly, meta = (Category = "RowFormation"))
+	TArray<ASquad*> RowSquads;
+
+};
+
+
+
 UCLASS()
 class ROMEPROJECTPROTOTYPE_API AArmy : public AActor
 {
@@ -17,14 +29,25 @@ public:
 	// Sets default values for this actor's properties
 	AArmy();
 
+	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "Army Formation"))
+	TArray<FRowFormation> GetFormation() const;
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "Army Formation"))
+	FRowFormation GetRowFormation(int RowIndex) const;
+
+	UFUNCTION(BlueprintCallable, meta = (Category = "Army Formation"))
+	void AddSlotInRow(int RowIndex);
+
+	UFUNCTION(BlueprintCallable, meta = (Category = "Army Formation"))
+	void SetSquadRef(int RowIndex, int SlotIndex, ASquad* Squad);
+
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
 
 	TArray<ASquad*> Squads;
 
+	TArray<FRowFormation> Formation;
+
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+
 
 };

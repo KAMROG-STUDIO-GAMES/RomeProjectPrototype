@@ -26,8 +26,7 @@ FText USquadQueueOrder::GetName()
 {
 	if (SquadClass) {
 		ASquad* SquadCDO = Cast<ASquad>(SquadClass.Get()->ClassDefaultObject);
-		FString Name = SquadCDO->GetSquadName();
-		return FText(FText::FromString(Name));
+		return SquadCDO->GetSquadName();
 	}
 	FString Name = "OLEG";
 	return FText(FText::FromString(Name));

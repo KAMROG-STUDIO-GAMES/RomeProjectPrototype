@@ -11,17 +11,25 @@ AArmy::AArmy()
 
 }
 
-// Called when the game starts or when spawned
-void AArmy::BeginPlay()
+TArray<FRowFormation> AArmy::GetFormation() const
 {
-	Super::BeginPlay();
-	
+	return Formation;
 }
 
-// Called every frame
-void AArmy::Tick(float DeltaTime)
+FRowFormation AArmy::GetRowFormation(const int RowIndex) const
 {
-	Super::Tick(DeltaTime);
-
+	return Formation[RowIndex];
 }
+
+void AArmy::AddSlotInRow(const int RowIndex)
+{
+	Formation[RowIndex].RowSquads.AddDefaulted();
+}
+
+void AArmy::SetSquadRef(const int RowIndex, const int SlotIndex, ASquad* Squad)
+{
+	Formation[RowIndex].RowSquads[SlotIndex] = Squad;
+}
+
+
 
