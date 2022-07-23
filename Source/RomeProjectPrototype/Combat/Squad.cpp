@@ -56,3 +56,8 @@ UTexture2D* ASquad::GetSquadIcon() const
 	return Icon;
 }
 
+bool ASquad::IsAvailableForAssigning() const
+{
+	return true;
+}
+

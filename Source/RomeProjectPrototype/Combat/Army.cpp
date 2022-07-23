@@ -8,7 +8,7 @@ AArmy::AArmy()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	Formation.AddDefaulted(3);
 }
 
 TArray<FRowFormation> AArmy::GetFormation() const

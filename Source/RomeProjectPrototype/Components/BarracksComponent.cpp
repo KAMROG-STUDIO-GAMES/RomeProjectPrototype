@@ -28,7 +28,7 @@ void UBarracksComponent::CreateSquad(TSubclassOf<ASquad> SquadClass)
 
 AArmy* UBarracksComponent::CreateArmy()
 {
-	auto CreatedArmy = Cast<AArmy>(GetWorld()->SpawnActor(AArmy::StaticClass()));
+	auto CreatedArmy = Cast<AArmy>(GetWorld()->SpawnActor(ArmyClass));
 	if (CreatedArmy)
 	{
 		Armies.Add(CreatedArmy);
@@ -42,6 +42,19 @@ AArmy* UBarracksComponent::CreateArmy()
 TArray<ASquad*> UBarracksComponent::GetSquads() const
 {
 	return Squads;
+}
+
+TArray<ASquad*> UBarracksComponent::GetAvailableSquads() const
+{
+	TArray<ASquad*> AvailableSquads;
+	for (ASquad* Squad : Squads)
+	{
+		if (Squad->IsAvailableForAssigning())
+		{
+			AvailableSquads.Add(Squad);
+		}
+	}
+	return AvailableSquads;
 }
 
 TArray<AArmy*> UBarracksComponent::GetArmies() const

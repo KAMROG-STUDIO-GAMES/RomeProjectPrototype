@@ -47,6 +47,9 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "Squad"))
 	UTexture2D* GetSquadIcon() const;
 
+	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "Squad"))
+	bool IsAvailableForAssigning() const;
+
 protected:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (Category = "Squad"))

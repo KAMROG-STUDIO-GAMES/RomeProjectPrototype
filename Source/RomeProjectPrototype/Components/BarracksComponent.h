@@ -31,6 +31,9 @@ public:
 	TArray<ASquad*> GetSquads() const;
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "BarracksComponent"))
+	TArray<ASquad*> GetAvailableSquads() const;
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "BarracksComponent"))
 	TArray<AArmy*> GetArmies() const;
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "BarracksComponent"))
@@ -56,7 +59,8 @@ protected:
 	UPROPERTY(EditAnywhere, meta = (Category = "BarracksComponent"))
 	int MaxArmiesNum = 10;
 
-
+	UPROPERTY(EditAnywhere, meta = (Category = "BarracksComponent"))
+	TSubclassOf<AArmy> ArmyClass;
 
 public:	
 
