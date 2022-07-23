@@ -25,7 +25,7 @@ public:
 	void CreateSquad(TSubclassOf<ASquad> SquadClass);
 
 	UFUNCTION(BlueprintCallable, meta = (Category = "BarracksComponent"))
-	void CreateArmy();
+	AArmy* CreateArmy();
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "BarracksComponent"))
 	TArray<ASquad*> GetSquads() const;
