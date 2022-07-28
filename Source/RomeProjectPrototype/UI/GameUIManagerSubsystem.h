@@ -11,7 +11,7 @@ class UGameUIPolicy;
 /**
  * 
  */
-UCLASS(Config=Game)
+UCLASS(Config=Game, Blueprintable)
 class ROMEPROJECTPROTOTYPE_API UGameUIManagerSubsystem : public UGameInstanceSubsystem
 {
 	GENERATED_BODY()

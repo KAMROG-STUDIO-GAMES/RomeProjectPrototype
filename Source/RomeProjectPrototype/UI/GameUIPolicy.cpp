@@ -80,18 +80,21 @@ void UGameUIPolicy::OnRootLayoutAddedToViewport(ULocalPlayer* LocalPlayer, UPrim
 #endif
 }
 
-void UGameUIPolicy::CreateLayoutWidget(ULocalPlayer* LocalPlayer)
+void UGameUIPolicy::CreateLayoutWidget()
 {
-	if (APlayerController* PlayerController = LocalPlayer->GetPlayerController(GetWorld()))
+	if (APlayerController* PlayerController = LPlayer->GetPlayerController(GetWorld()))
 	{
-		TSubclassOf<UPrimaryGameLayout> LayoutWidgetClass = GetLayoutWidgetClass(LocalPlayer);
+		TSubclassOf<UPrimaryGameLayout> LayoutWidgetClass = GetLayoutWidgetClass(LPlayer);
 		if (ensure(LayoutWidgetClass && !LayoutWidgetClass->HasAnyClassFlags(CLASS_Abstract)))
 		{
 			UPrimaryGameLayout* NewLayoutObject = CreateWidget<UPrimaryGameLayout>(PlayerController, LayoutWidgetClass);
 			RootLayout = NewLayoutObject;
 
-			AddLayoutToViewport(LocalPlayer, NewLayoutObject);
+			AddLayoutToViewport(LPlayer, NewLayoutObject);
 		}
+	} else
+	{
+		GetWorld()->GetTimerManager().SetTimerForNextTick(this, &UGameUIPolicy::CreateLayoutWidget);
 	}
 }
 
@@ -116,13 +119,13 @@ void UGameUIPolicy::NotifyPlayerAdded(ULocalPlayer* LocalPlayer)
 				CreateLayoutWidget(LocalPlayer);
 			}
 		});*/
-
+	LPlayer = LocalPlayer;
 	if (RootLayout && LocalPlayer)
 	{
 		AddLayoutToViewport(LocalPlayer, RootLayout);
 	}
 	else
 	{
-		CreateLayoutWidget(LocalPlayer);
+		CreateLayoutWidget();
 	}
 }

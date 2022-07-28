@@ -39,7 +39,7 @@ protected:
 	//virtual void OnRootLayoutRemovedFromViewport(UCommonLocalPlayer* LocalPlayer, UPrimaryGameLayout* Layout);
 	//virtual void OnRootLayoutReleased(UCommonLocalPlayer* LocalPlayer, UPrimaryGameLayout* Layout);
 
-	void CreateLayoutWidget(ULocalPlayer* LocalPlayer);
+	void CreateLayoutWidget();
 	TSubclassOf<UPrimaryGameLayout> GetLayoutWidgetClass(ULocalPlayer* LocalPlayer);
 
 
@@ -51,8 +51,8 @@ private:
 	UPROPERTY(Transient)
 	UPrimaryGameLayout* RootLayout = nullptr;
 
-	//UPROPERTY(Transient)
-	//ULocalPlayer* LPlayer = nullptr;
+	UPROPERTY(Transient)
+	ULocalPlayer* LPlayer = nullptr;
 
 	void NotifyPlayerAdded(ULocalPlayer* LocalPlayer);
 	//void NotifyPlayerRemoved(ULocalPlayer* LocalPlayer);
