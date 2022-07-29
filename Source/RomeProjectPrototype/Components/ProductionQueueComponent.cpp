@@ -125,6 +125,7 @@ void UProductionQueueComponent::CreateSquadOrder(TSubclassOf<ASquad> SquadClass)
 {
 	USquadQueueOrder* Handler = NewObject<USquadQueueOrder>(this);
 	Handler->SquadClass = SquadClass;
+	Handler->Time = SquadClass.GetDefaultObject()->GetHiringTime();
 	CreateOrder(Handler);
 }
 

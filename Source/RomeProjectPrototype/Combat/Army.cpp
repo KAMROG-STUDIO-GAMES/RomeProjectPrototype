@@ -29,6 +29,7 @@ void AArmy::AddSlotInRow(const int RowIndex)
 void AArmy::SetSquadRef(const int RowIndex, const int SlotIndex, ASquad* Squad)
 {
 	Formation[RowIndex].RowSquads[SlotIndex] = Squad;
+	Squad->SetArmy(this);
 }
 
 

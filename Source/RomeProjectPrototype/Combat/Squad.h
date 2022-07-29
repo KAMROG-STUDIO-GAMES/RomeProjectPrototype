@@ -7,6 +7,8 @@
 #include "Engine/Texture2D.h"
 #include "Squad.generated.h"
 
+class AArmy;
+
 UCLASS(Blueprintable, BlueprintType)
 class ROMEPROJECTPROTOTYPE_API ASquad : public AActor
 {
@@ -50,6 +52,12 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "Squad"))
 	bool IsAvailableForAssigning() const;
 
+	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (Category = "Squad"))
+	float GetHiringTime() const;
+
+	UFUNCTION()
+	void SetArmy(AArmy* NewArmy);
+
 protected:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (Category = "Squad"))
@@ -67,6 +75,8 @@ protected:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (Category = "Squad"))
 	float Range = 1;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (Category = "Squad"))
+	float HiringTime = 1;
 
 	#define LOCTEXT_NAMESPACE "SquadNamespace"
 
@@ -81,5 +91,9 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (Category = "Squad"))
 	UTexture2D* Icon;
+
+private:
+
+	TSoftObjectPtr<AArmy> Army;
 
 };

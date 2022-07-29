@@ -2,7 +2,7 @@
 
 
 #include "Combat/Squad.h"
-
+#include "Army.h"
 // Sets default values
 ASquad::ASquad()
 {
@@ -58,6 +58,16 @@ UTexture2D* ASquad::GetSquadIcon() const
 
 bool ASquad::IsAvailableForAssigning() const
 {
-	return true;
+	return !Army.IsValid();
+}
+
+float ASquad::GetHiringTime() const
+{
+	return HiringTime;
+}
+
+void ASquad::SetArmy(AArmy* NewArmy)
+{
+	Army = NewArmy;
 }
 
